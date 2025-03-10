@@ -217,7 +217,7 @@
     </div>
 
     <script>
-       document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function() {
     const fileUrl = "https://raw.githubusercontent.com/pirand3lo/consultorIA/master/src/base_Resultados_ceneval.xlsx";
     
     fetch(fileUrl)
@@ -263,13 +263,6 @@
         .catch(error => console.error("Error cargando el archivo:", error));
 });
 
-            
-            // Configurar selectores de filtros y actualizar el dashboard
-            updatePlantelOptions();
-            updateDashboard();
-        })
-        .catch(error => console.error("Error cargando el archivo:", error));
-});
       
        let datos = [];
         let charts = {
