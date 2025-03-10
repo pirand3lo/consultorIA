@@ -218,7 +218,7 @@
 
     <script>
        document.addEventListener("DOMContentLoaded", function() {
-    const fileUrl = "https://raw.githubusercontent.com/pirand3lo/consultorIA/master/src/base_Resultados_ceneval.xlsx";
+    const fileUrl = "https://raw.githubusercontent.com/pirand3lo/consultorIA/master/src/base_Resultado_ceneval.xlsx";
     
     fetch(fileUrl)
         .then(response => response.arrayBuffer())
@@ -236,6 +236,33 @@
                 });
                 return obj;
             });
+            
+            // Habilitar los selectores de filtros
+            const sistemaSelect = document.getElementById('sistemaSelect');
+            const plantelSelect = document.getElementById('plantelSelect');
+            sistemaSelect.disabled = false;
+            plantelSelect.disabled = false;
+            
+            // Limpiar opciones previas en los selectores
+            sistemaSelect.querySelectorAll('option:not(:first-child)').forEach(option => option.remove());
+            plantelSelect.querySelectorAll('option:not(:first-child)').forEach(option => option.remove());
+
+            // Poblar opciones para "SISTEMA"
+            const sistemas = [...new Set(datos.map(item => item['SISTEMA']))];
+            sistemas.forEach(sis => {
+                const option = document.createElement('option');
+                option.value = sis;
+                option.textContent = sis;
+                sistemaSelect.appendChild(option);
+            });
+
+            // Actualizar opciones de "PLANTEL" y el dashboard
+            updatePlantelOptions();
+            updateDashboard();
+        })
+        .catch(error => console.error("Error cargando el archivo:", error));
+});
+
             
             // Configurar selectores de filtros y actualizar el dashboard
             updatePlantelOptions();
