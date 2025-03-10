@@ -109,11 +109,16 @@
         
 
         <!-- Selector de archivo -->
-        <center>
+        <!--center>
             <input type="file" id="fileInput" accept=".xlsx, .xls" onchange="handleFile(event)">
         </center>
 
-        <!-- Filtros -->
+        
+
+        <-- Filtros -->
+
+        
+
         <div class="filters">
             <select id="sistemaSelect" onchange="updatePlantelOptions(); updateDashboard()" disabled>
                 <option value="TODOS">Todos los Sistemas</option>
@@ -212,7 +217,34 @@
     </div>
 
     <script>
-        let datos = [];
+       document.addEventListener("DOMContentLoaded", function() {
+    const fileUrl = "https://raw.githubusercontent.com/pirand3lo/consultorIA/master/src/base_Resultados_ceneval.xlsx";
+    
+    fetch(fileUrl)
+        .then(response => response.arrayBuffer())
+        .then(data => {
+            const workbook = XLSX.read(data, { type: 'array' });
+            const firstSheet = workbook.Sheets[workbook.SheetNames[0]];
+            const jsonData = XLSX.utils.sheet_to_json(firstSheet, { header: 1 });
+            
+            // Procesar datos
+            const headers = jsonData[0];
+            datos = jsonData.slice(1).map(row => {
+                const obj = {};
+                headers.forEach((header, index) => {
+                    obj[header] = row[index];
+                });
+                return obj;
+            });
+            
+            // Configurar selectores de filtros y actualizar el dashboard
+            updatePlantelOptions();
+            updateDashboard();
+        })
+        .catch(error => console.error("Error cargando el archivo:", error));
+});
+      
+       let datos = [];
         let charts = {
             comprension: null,
             redaccion: null,
