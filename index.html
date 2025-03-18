@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ConsultorIA | Soluciones en IA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --primary-color: #0077B6;
+            --secondary-color: #00B4D8;
+            --accent-color: #CAF0F8;
+            --dark-bg: #03045E;
+            --light-text: #F0FFFF;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--light-text);
+            overflow-x: hidden;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background-color: rgba(0, 119, 182, 0.8);
+            position: fixed;
+            width: 100%;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--dark-bg), var(--primary-color));
+            padding: 0 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            animation: fadeIn 1.5s ease;
+            padding-top: 80px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 1rem;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn {
+            background-color: var(--secondary-color);
+            color: var(--light-text);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: inline-block;
+            margin-top: 2rem;
+            text-decoration: none;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .dynamic-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 5%;
+            position: relative;
+        }
+
+        .service-card {
+            background-color: rgba(0, 119, 182, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .course-section {
+            padding: 5%;
+        }
+
+        .course-card {
+            background-color: rgba(0, 180, 216, 0.2);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .floating-video {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 225px;
+            height: 400px;
+            background-color: transparent;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            z-index: 15;
+        }
+
+        .video-wrapper {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-wrapper video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Estilo para el botón de sonido */
+        .sound-toggle {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            font-size: 12px;
+            text-align: center;
+            z-index: 16;
+            width: 100%;
+        }
+
+        /* Sección de contacto (para completar la página) */
+        .contact-section {
+            padding: 5%;
+            text-align: center;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .dynamic-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .floating-video {
+                width: 168px;
+                height: 300px;
+                right: 10px;
+            }
+        }
+
+        /* Estilos para el carrusel */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            overflow: hidden;
+            margin-top: 60px;
+        }
+
+        .carousel {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 2;
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="logo">ConsultorIA</div>
+        <div class="nav-links">
+            <a href="#inicio">Inicio</a>
+            <a href="#servicios">Servicios</a>
+            <a href="#cursos">Cursos</a>
+            <a href="#contacto">Contacto</a>
+        </div>
+    </nav>
+
+    <!-- Carrusel de imágenes -->
+    <div class="carousel-container">
+        <div class="carousel">
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" alt="Personas estudiando IA">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" alt="Tecnología IA">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" alt="Aprendizaje IA">
+            </div>
+            <div class="carousel-slide">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780ecad995" alt="Innovación IA">
+            </div>
+        </div>
+        <button class="carousel-button prev">❮</button>
+        <button class="carousel-button next">❯</button>
+    </div>
+
+    <section class="hero" id="inicio">
+        <div class="hero-content">
+            <h1>Innovación en Inteligencia Artificial</h1>
+            <p>Transformando ideas en soluciones tecnológicas</p>
+            <a href="#servicios" class="btn">Explorar Servicios</a>
+        </div>
+    </section>
+
+    <section class="dynamic-grid" id="servicios">
+        <div class="service-card">🎓 Cursos Interactivos</div>
+        <div class="service-card">🤖 Desarrollo de IA</div>
+        <div class="service-card">💻 Web con Tecnología AI</div>
+    </section>
+
+    <section class="course-section" id="cursos">
+        <div class="course-card">
+            <h3>Curso de Implementación de IA</h3>
+            <p>12 semanas | Certificación Profesional</p>
+            <a href="#contacto" class="btn">Inscripción Abierta</a>
+        </div>
+    </section>
+
+    <section class="contact-section" id="contacto">
+        <h2>Contáctanos</h2>
+        <p>Estamos listos para ayudarte a implementar soluciones de IA en tu negocio</p>
+        <a href="mailto:info@consultoria.com" class="btn">Enviar Mensaje</a>
+    </section>
+
+    <!-- Video flotante en la parte inferior de la página -->
+    <div class="floating-video">
+        <div class="video-wrapper">
+            <video autoplay playsinline muted id="myVideo">
+                <source src="Q:\LUIS_GARCIA\Luis_2025\consultorIA\Avatar\consultoria.mp4" type="video/mp4">
+            </video>
+        </div>
+        <button class="sound-toggle" id="soundToggle">Da click para activar sonido</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const video = document.getElementById('myVideo');
+            const soundToggle = document.getElementById('soundToggle');
+            let playCount = 0;
+            
+            // Comenzar video automáticamente (muted)
+            video.play().catch(error => {
+                console.log("Error al reproducir automáticamente:", error);
+            });
+            
+            // Función para activar sonido al hacer clic en el botón
+            soundToggle.addEventListener('click', function() {
+                if (video.muted) {
+                    video.muted = false;
+                    soundToggle.textContent = 'Sonido activado ✓';
+                    
+                    // Asegurar que el video se esté reproduciendo
+                    video.play().catch(error => {
+                        console.log("No se pudo reproducir:", error);
+                    });
+                } else {
+                    video.muted = true;
+                    soundToggle.textContent = 'Da click para activar sonido';
+                }
+            });
+
+            // Contador de reproducciones y reinicio del video
+            video.addEventListener('ended', function() {
+                playCount++;
+                if (playCount < 2) {
+                    // Reiniciar el video para la segunda reproducción
+                    video.currentTime = 0;
+                    video.play();
+                } else {
+                    // Ocultar el video y el botón después de la segunda reproducción
+                    video.style.display = 'none';
+                    soundToggle.style.display = 'none';
+                }
+            });
+            
+            // Carrusel de imágenes
+            const carousel = document.querySelector('.carousel');
+            const slides = document.querySelectorAll('.carousel-slide');
+            const prevButton = document.querySelector('.carousel-button.prev');
+            const nextButton = document.querySelector('.carousel-button.next');
+            let currentSlide = 0;
+
+            function updateCarousel() {
+                carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+            }
+
+            prevButton.addEventListener('click', () => {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateCarousel();
+            });
+
+            nextButton.addEventListener('click', () => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateCarousel();
+            });
+
+            // Autoplay del carrusel
+            setInterval(() => {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateCarousel();
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
